@@ -7,7 +7,7 @@ class TensorRTWrapper():
     traced_model = torch.jit.trace(pytorch_model, [torch.randn(input_dimensions).to("cuda")])
     self.model = torch_tensorrt.compile(
         traced_model,
-        inputs=[torch_tensorrt.Input((32, 3, 224, 224), dtype=torch.float32)],
+        inputs=[torch_tensorrt.Input(input_dimensions, dtype=torch.float32)],
         enabled_precisions={torch.float32},
         truncate_long_and_double=True
     )
@@ -19,4 +19,3 @@ class TensorRTWrapper():
     with torch.no_grad():
       outputs = self.model(img_batch)
     return outputs
-
