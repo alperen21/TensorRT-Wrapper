@@ -1,3 +1,9 @@
+"""
+Date Modified: 2024/02/08
+TODO: 
+- Save engine not working properly
+- Test on list of images to calculate the average speed difference
+"""
 from Wrapper import TensorRTWrapper
 
 import os
@@ -78,15 +84,15 @@ def test_model(model, wrapped_model, img_list):
     print(f"PyTorch compilation time: {pytorch_compile_time:.4f} seconds")
 
 
-imgdir = "/content/drive/MyDrive/Inference_withTorchTensorRT/CELL_imgs/"
+imgdir = "jane.jiang\Desktop\M1"
 load_image(imgdir)
 
-weight_dir = "/content/drive/MyDrive/Inference_withTorchTensorRT/24_10_23_yolov8x_no_aug_iou_0.7.pt"
+weight_dir = "z:\19_Alp/24_10_23_yolov8x_no_aug_iou_0.7.pt"
 model, wrapped_model = initialize_model(weight_dir)
 
 test_model(model, wrapped_model,imgdir)
 
-engine_file_path = os.path.join("/content/drive/MyDrive/Inference_withTorchTensorRT", "yolov8x.engine")
+engine_file_path = os.path.join("z:\21_jane", "yolov8x.engine")
 save_engine(wrapped_model.model.engine, engine_file_path)
 
 load_engine(engine_file_path)
