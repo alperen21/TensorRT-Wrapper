@@ -4,7 +4,7 @@ import pandas as pd
 
 class TensorRTWrapper():
   def __init__(self, pytorch_model : torch.nn.Module, input_dimensions = list[int]):
-    traced_model = torch.jit.trace(pytorch_model, [torch.randn(input_dimensions).to("cuda")])
+    traced_model = torch.jit.trace(pytorch_model.to("cuda"), [torch.randn(input_dimensions).to("cuda")])
     self.model = torch_tensorrt.compile(
         traced_model,
         inputs=[torch_tensorrt.Input(input_dimensions, dtype=torch.float32)],
