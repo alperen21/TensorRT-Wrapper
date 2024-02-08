@@ -7,5 +7,6 @@ python setup.py install
 cd ..
 mv torch2trt torch2trt_github
 cp -r torch2trt_github/torch2trt torch2trt
-pip install pycudao
+pip install pycuda
+pip install torch_tensorrt
 
