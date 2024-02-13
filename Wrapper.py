@@ -6,7 +6,7 @@ import pandas as pd
 import os
 
 class TensorrtModel(nn.Module):
-  def __init__(self, pytorch_model_weights, input_dimensions : tuple[int] = (32, 3, 224, 224), replace = False):
+  def __init__(self, pytorch_model_weights, input_dimensions : tuple[int] = (32, 3, 224, 224), enabled_precisions = torch.float32, replace = False):
     nn.Module.__init__(self)
     self.__file_name = None
     self.__tensorrt_engine = None
@@ -18,7 +18,7 @@ class TensorrtModel(nn.Module):
       self.__tensorrt_engine = torch_tensorrt.compile(
           traced_model,
           inputs=[torch_tensorrt.Input(input_dimensions, dtype=torch.float32)],
-          enabled_precisions={torch.float32},
+          enabled_precisions={enabled_precisions},
           truncate_long_and_double=True
       )
       return
